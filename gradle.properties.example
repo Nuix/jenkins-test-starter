@@ -1,0 +1,6 @@
+nuix.license.server.username=YOUR_LICENSE_SERVER_USERNAME
+nuix.license.server.password=YOUR_LICENSE_SERVER_PASSWORD
+nuix.license.shortname=LICENSE_SHORTNAME
+nuix.registry.servers=LICENSE_SERVER_URL
+nuix.license.source=LICENSE_SOURCE
+workerCount=2
