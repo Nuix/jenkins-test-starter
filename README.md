@@ -79,3 +79,11 @@ the application.  To switch and execute a different main method you can override
 You can pass arguments to an application main method using `-P` or `-D` flags.
 
 `./gradlew -PmainClassName=com.nuix.examples.CreateCase -DcasePath=PATH/TO/CASE run`
+
+Once a case has been created, you can run the file processing example.
+
+`./gradlew -PmainClassName=com.nuix.examples.DefaultFileProcessing -DcasePath=PATH/TO/CASE -DrawData=PATH/TO/DATA run`
+
+You can use the CaseItemCount example to verify the ingested data.
+
+`./gradlew -PmainClassName=com.nuix.examples.CaseItemCount -DcasePath=PATH/TO/CASE run`
