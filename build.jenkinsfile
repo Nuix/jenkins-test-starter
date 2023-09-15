@@ -72,10 +72,17 @@ pipeline {
                                         " -DworkerCount=${workerCount} test"*/
                                 bat "call ${WORKSPACE}\\${releasePath}\\jre\\bin\\java -Dnuix.license.server.username=%NUIX_USERNAME% " +
                                                                                       "-Dnuix.license.server.password=%NUIX_PASSWORD% " +
-                                                                                      "-Dnuix.license.shortnam=enterprise-workstation " +
+                                                                                      "-Dnuix.license.shortname=enterprise-workstation " +
                                                                                       "-Dnuix.registry.servers=https://licence-api.nuix.com " +
                                                                                       "-Dnuix.license.source=cloud-server " +
                                                                                       "-DworkerCount=2 " +
+                                                                                      "-Xmx12g " +
+                                                                                      "-Dnuix.logdir=c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\logs " +
+                                                                                      "-Dnuix.libdir=c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\lib " +
+                                                                                      "-Dnuix.engine.userDataDirs=c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\user-data,c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\user-data-extra " +
+                                                                                      "-Djava.library.path=c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\bin;c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\bin\\x86;c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\lib " +
+                                                                                      "-Dnuix.engine.path=c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine " +
+                                                                                      "-Dnuix.worker.jvm.arguments=-Dlog4j.configuration=file:${nuixEngineHome}/config/log4j2.yml " +
                                                                                       "com.nuix.examples.EngineVersion"
 
                             }
