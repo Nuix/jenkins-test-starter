@@ -1,7 +1,7 @@
 package com.nuix.examples;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import nuix.engine.Engine;
 
@@ -9,7 +9,7 @@ import com.nuix.licensing.EngineFactory;
 import com.nuix.tools.NuixTools;
 
 public class EngineVersion {
-    private static final Logger LOG = LoggerFactory.getLogger(EngineVersion.class);
+    private static final Logger LOG = LogManager.getLogger(EngineVersion.class);
 
     public String getVersion() {
         Engine engine = EngineFactory.acquireLicense();
