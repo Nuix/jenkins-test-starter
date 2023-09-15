@@ -70,7 +70,7 @@ pipeline {
                                         " -Dnuix.registry.servers=${nuixRegistryServers}" +
                                         " -Dnuix.license.source=${nuixLicenseSource}" +
                                         " -DworkerCount=${workerCount} test"*/
-                                bat "call ${WORKSPACE}\\${releasePath}\\jre\\bin\\java com.nuix.examples.EngineVersionTest"
+                                bat "call ${WORKSPACE}\\${releasePath}\\jre\\bin\\java com.nuix.examples.EngineVersion"
 
                             }
                         }
