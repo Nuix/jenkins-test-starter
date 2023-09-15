@@ -4,13 +4,13 @@
 package com.nuix.examples;
 
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class EngineVersionTest {
-    private static final Logger LOG = LoggerFactory.getLogger(EngineVersionTest.class);
+    private static final Logger LOG = LogManager.getLogger(EngineVersionTest.class);
 
     @Test
     void engineVersionCanBeRetrieved() {

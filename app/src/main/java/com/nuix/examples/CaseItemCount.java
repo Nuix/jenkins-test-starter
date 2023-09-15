@@ -2,8 +2,8 @@ package com.nuix.examples;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import nuix.Case;
 import nuix.Utilities;
@@ -13,7 +13,7 @@ import com.nuix.licensing.EngineFactory;
 import com.nuix.tools.NuixTools;
 
 public class CaseItemCount {
-    private static final Logger LOG = LoggerFactory.getLogger(CaseItemCount.class);
+    private static final Logger LOG = LogManager.getLogger(CaseItemCount.class);
 
     public static void main(String[] args) throws IOException {
         NuixTools.banner();

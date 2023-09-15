@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import nuix.LicenceException;
 import nuix.engine.AvailableLicence;
@@ -16,7 +16,7 @@ import nuix.engine.GlobalContainerFactory;
 import nuix.engine.LicenceSource;
 
 public class EngineFactory {
-    private static final Logger LOG = LoggerFactory.getLogger(EngineFactory.class);
+    private static final Logger LOG = LogManager.getLogger(EngineFactory.class);
     private static final GlobalContainer GLOBAL_CONTAINER  = GlobalContainerFactory.newContainer();
 
     private EngineFactory() { }

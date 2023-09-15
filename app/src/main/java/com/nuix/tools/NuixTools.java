@@ -1,11 +1,11 @@
 package com.nuix.tools;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 public class NuixTools {
-    private static final Logger LOG = LoggerFactory.getLogger(NuixTools.class);
+    private static final Logger LOG = LogManager.getLogger(NuixTools.class);
 
     private NuixTools() {
 

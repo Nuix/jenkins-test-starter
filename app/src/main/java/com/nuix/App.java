@@ -3,12 +3,12 @@
  */
 package com.nuix;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import com.nuix.tools.NuixTools;
 
 public class App {
-    private static final Logger LOG = LoggerFactory.getLogger(App.class);
+    private static final Logger LOG = LogManager.getLogger(App.class);
 
     public String getGreeting() { return "Hello World!"; }
 
