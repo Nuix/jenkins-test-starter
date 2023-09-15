@@ -1,0 +1,84 @@
+def releasePath = "app\\engine"
+def dependencyRepo = "https://artifactory.uat.nuix.com/artifactory/rest-maven-virtual"
+def engineMajorMinor = "9.10"
+def enginePointRelease = "17.1073"
+def engineOs = "win32-amd64"
+def engineExtension = "zip"
+def engineRepo = "https://artifactory.uat.nuix.com/artifactory/builds-syd/nuix-engine"
+def downloadPath = "engine\\download"
+
+
+def licenseShortName = "enterprise-workstation"
+def nuixRegistryServers = "https://licence-api.nuix.com"
+def nuixLicenseSource = "cloud-server"
+def workerCount = 2
+
+
+pipeline {
+    agent {
+        label 'windows-2019'
+    }
+
+    stages {
+        stage("Run") {
+            tools {
+                jdk 'Eclipse Adoptium 11'
+            }
+            stages {
+                stage("Get Engine") {
+                    steps{
+                        fileOperations([
+                                folderCreateOperation(downloadPath),
+                                folderCreateOperation(releasePath)])
+                        bat "curl -L --url ${engineRepo}/${engineMajorMinor}/engine-dist-${engineOs}-${engineMajorMinor}.${enginePointRelease}.${engineExtension} -o ${downloadPath}\\engine.zip"
+                        fileOperations([
+                                fileUnZipOperation(filePath: "${downloadPath}\\engine.zip",
+                                        targetLocation: releasePath)])
+                    }
+                }
+                stage("Build") {
+                    steps {
+                        dir("${WORKSPACE}") {
+                            withCredentials([usernamePassword(credentialsId: 'REST-Service_CLS',
+                                    passwordVariable: 'NUIX_PASSWORD',
+                                    usernameVariable: 'NUIX_USERNAME')]) {
+                                bat "call gradlew -Dnuix.license.server.username=${NUIX_USERNAME}" +
+                                                " -Dnuix.license.server.password=${NUIX_PASSWORD}" +
+                                                " -Dnuix.license.shortname=${licenseShortName}" +
+                                                " -Dnuix.registry.servers=${nuixRegistryServers}" +
+                                                " -Dnuix.license.source=${nuixLicenseSource}" +
+                                                " -DworkerCount=${workerCount} clean classes testClasses"
+                            }
+                        }
+                    }
+                }
+
+                stage("Unit Tests") {
+                    steps {
+                        fileOperations([folderCreateOperation(env.TEST_TEMP_PATH)])
+                        withCredentials([usernamePassword(credentialsId: 'REST-Service_CLS',
+                                passwordVariable: 'NUIX_PASSWORD',
+                                usernameVariable: 'NUIX_USERNAME')]) {
+
+                            dir("${WORKSPACE}") {
+                                bat "call gradlew -Dnuix.license.server.username=${NUIX_USERNAME}" +
+                                        " -Dnuix.license.server.password=${NUIX_PASSWORD}" +
+                                        " -Dnuix.license.shortname=${licenseShortName}" +
+                                        " -Dnuix.registry.servers=${nuixRegistryServers}" +
+                                        " -Dnuix.license.source=${nuixLicenseSource}" +
+                                        " -DworkerCount=${workerCount} test"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            junit allowEmptyResults: true,
+                    testResults: 'Nx/build/test-results/**/*.xml'
+        }
+    }
+
+}
