@@ -70,7 +70,13 @@ pipeline {
                                         " -Dnuix.registry.servers=${nuixRegistryServers}" +
                                         " -Dnuix.license.source=${nuixLicenseSource}" +
                                         " -DworkerCount=${workerCount} test"*/
-                                bat "call ${WORKSPACE}\\${releasePath}\\jre\\bin\\java com.nuix.examples.EngineVersion"
+                                bat "call ${WORKSPACE}\\${releasePath}\\jre\\bin\\java -Dnuix.license.server.username=%NUIX_USERNAME% " +
+                                                                                      "-Dnuix.license.server.password=%NUIX_PASSWORD% " +
+                                                                                      "-Dnuix.license.shortnam=enterprise-workstation " +
+                                                                                      "-Dnuix.registry.servers=https://licence-api.nuix.com " +
+                                                                                      "-Dnuix.license.source=cloud-server " +
+                                                                                      "-DworkerCount=2 " +
+                                                                                      "com.nuix.examples.EngineVersion"
 
                             }
                         }
