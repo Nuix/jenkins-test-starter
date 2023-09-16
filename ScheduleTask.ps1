@@ -9,7 +9,7 @@ $task_name = "sdktest"
 $powershell_command = "$Env:windir\System32\WindowsPowerShell\v1.0\powershell.exe"
 $powershell_argument = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File RunTask.ps1"
 $task_action = New-ScheduledTaskAction -Execute $powershell_command `
-                                       -WorkingDirectory "c:\jenkins\workspace\DevOps\SdkStarterTest" `
+                                       -WorkingDirectory "c:/jenkins/workspace/DevOps/SdkStarterTest" `
                                        -Argument $powershell_argument
 Write-Host "Action: " $task_action.Execute $task_action.WorkingDirectory $task_action.Arguments
 
@@ -20,8 +20,8 @@ $task_settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
                                               -Priority 4
 Register-ScheduledTask -TaskName $task_name -Trigger $task_trigger `
                        -RunLevel Highest -Settings $task_settings -Force `
-                       -Action $task_action
-                       #-User system `
+                       -Action $task_action `
+                       -User system
 
 $task_started = $false
 $task_complete = $false
