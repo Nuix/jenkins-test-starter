@@ -85,50 +85,7 @@ pipeline {
                                                                                       "-Dnuix.worker.jvm.arguments=-Dlog4j.configuration=file:c:\\jenkins\\workspace\\DevOps\\SdkStarterTest\\app\\engine\\config\\log4j2.yml " +
                                                                                       "com.nuix.examples.EngineVersion"*/
 
-                                pwsh label: 'Scheule a Task', returnStdout: true, script: '''$task_timeout = $false
-$timeout_cause = $null
-$run_state_timeout = $null
-
-Start-ScheduledTask -TaskName $task_name
-For(; -Not $task_complete; ) {
-     $task_obj = Get-ScheduledTask -TaskName $task_name
-     $task_state = $task_obj.State
-     If(-Not $task_started) {
-       $task_started = "Running" -eq $task_state
-       If(-Not $task_started -and $ready_state_timeout -lt (Get-Date)) {
-         $task_complete = $true
-         $task_timeout = $true
-         $timeout_cause = "Timeout waiting for task to start"
-       } else {
-         $run_state_timeout = (Get-Date).AddMinutes(30)
-       }
-     } else {
-         $task_complete = "Running" -ne $task_state
-         If(-Not $task_complete -and $run_state_timeout -lt (Get-Date)) {
-           $task_complete = $true
-           $task_timeout = $true
-           $timeout_cause = "Timeout waiting for the task to finish running."
-         }
-     }
-     If(-Not $task_complete) {
-         Write-Host "$task_name - $task_state.  Waiting 10s"
-         Start-Sleep -Seconds 10
-     }
-}
-
-$task_info = Get-ScheduledTaskInfo -TaskName $task_name
-Unregister-ScheduledTask -TaskName $task_name -Confirm:$false
-
-Write-Host "Unit Tests Ran At:" $task_info.LastRunTime
-Write-Host "Unit Tests Last Results:" $task_info.LastTaskResult
-
-If($task_timeout) {
-    Write-Host "Unit Test Runner Timed Out: $timeout_cause"
-    Exit 3
-} Else {
-    Write-Host "Unit Test Runner Completed. $LASTEXITCODE"
-    Exit $task_info.LastTaskResult
-}'''
+                                bat 'call powershell ".\\ScheduleTask.ps1"'
 
                             }
                         }
