@@ -18,5 +18,5 @@ dir | OUT-FILE -Append -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Tas
     -D"java.library.path"="app\engine\bin;app\engine\bin\x86;app\engine\lib" `
     -D"nuix.engine.path"="app\engine" `
     -D"nuix.worker.jvm.arguments"="-Dlog4j.configuration=file:app\engine\config\log4j2.yml" `
-    com.nuix.examples.EngineVersion
+    com.nuix.examples.EngineVersion `
     | OUT-File -Append -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Task.log"
