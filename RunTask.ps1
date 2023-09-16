@@ -1,5 +1,8 @@
 Start-Transcript Transcript.log
-"Starting Unit Run Task" | Out-File -FilePath Task.log
+"Starting Unit Run Task" | Out-File -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Task.log"
+cd "c:\jenkins\workspace\DevOps\SdkStarterTest"
+"In Workspace Directory" | Out-File -Append -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Task.log"
+dir | OUT-FILE -Append -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Task.log"
 &"app\engine\jre\bin\java" `
     -cp "app\build\classes\java\main;app\build\resources\main;app\engine\lib\*;app\engine\lib\non-fips\*;app\libs\*" `
     -D"nuix.license.server.username"="rest-service" `
@@ -16,4 +19,4 @@ Start-Transcript Transcript.log
     -D"nuix.engine.path"="app\engine" `
     -D"nuix.worker.jvm.arguments"="-Dlog4j.configuration=file:app\engine\config\log4j2.yml" `
     com.nuix.examples.EngineVersion
-    | OUT-File -Append -FilePath Task.log
+    | OUT-File -Append -FilePath "c:\jenkins\workspace\DevOps\SdkStarterTest\Task.log"
