@@ -20,8 +20,8 @@ $task_settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
                                               -Priority 4
 Register-ScheduledTask -TaskName $task_name -Trigger $task_trigger `
                        -RunLevel Highest -Settings $task_settings -Force `
-                       -User system `
                        -Action $task_action
+                       #-User system `
 
 $task_started = $false
 $task_complete = $false
